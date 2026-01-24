@@ -5,8 +5,39 @@ plugins {
     id("com.gradleup.shadow") version "9.3.1"
 }
 
+fun String.exec(): String {
+    val proc = ProcessBuilder(*this.split(" ").toTypedArray())
+        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+        .redirectError(ProcessBuilder.Redirect.DISCARD)
+        .start()
+
+    proc.waitFor(10, TimeUnit.SECONDS)
+    return proc.inputReader().buffered().readText().trim()
+}
+
+fun isDirty(): Boolean {
+    val result = "git status --untracked-files=no --porcelain".exec()
+    return result.isNotBlank()
+}
+
+fun getVersion(): String {
+    val tag = "git tag --points-at HEAD".exec()
+    if (tag.isNotBlank()) {
+        return tag
+    }
+
+    val commit = "git rev-parse --short HEAD".exec()
+    val isDirty = isDirty()
+
+    if (isDirty) {
+        return "$commit-SNAPSHOT"
+    }
+
+    return commit
+}
+
 group = "de.axelrindle"
-version = "1.0-SNAPSHOT"
+version = getVersion()
 
 repositories {
     mavenCentral()
