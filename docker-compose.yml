@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:18.1-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready
+      start_period: 10s
+      interval: 30s
+      timeout: 60s
+      retries: 5
+
+  server:
+    image: keycloak-keycloak-usspi
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "1337:8080/tcp"
+      - "7331:7331/tcp"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/postgres
+      KC_DB_PASSWORD: postgres
+      KC_DB_USERNAME: postgres
+      KC_LOG_LEVEL: INFO
+      KC_LOG_LEVEL_de.axelrindle.keycloak.federation: DEBUG
+      JAVA_OPTS_APPEND: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:7331

@@ -1,0 +1,18 @@
+[versions]
+keycloak = "26.0.0"
+
+[libraries]
+keycloak-core = { group = "org.keycloak", name = "keycloak-core", version.ref = "keycloak" }
+keycloak-server-spi = { group = "org.keycloak", name = "keycloak-server-spi", version.ref = "keycloak" }
+keycloak-server-spi-private = { group = "org.keycloak", name = "keycloak-server-spi-private", version.ref = "keycloak" }
+keycloak-model-storage = { group = "org.keycloak", name = "keycloak-model-storage", version.ref = "keycloak" }
+keycloak-model-storage-private = { group = "org.keycloak", name = "keycloak-model-storage-private", version.ref = "keycloak" }
+
+[bundles]
+keycloak = [
+    "keycloak-core",
+    "keycloak-server-spi",
+    "keycloak-server-spi-private",
+    "keycloak-model-storage",
+    "keycloak-model-storage-private",
+]
