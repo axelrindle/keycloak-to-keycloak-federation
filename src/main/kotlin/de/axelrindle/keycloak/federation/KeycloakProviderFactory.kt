@@ -1,16 +1,11 @@
 package de.axelrindle.keycloak.federation
 
-import org.jboss.logging.Logger
 import org.keycloak.component.ComponentModel
 import org.keycloak.models.KeycloakSession
 import org.keycloak.models.RealmModel
 import org.keycloak.storage.UserStorageProviderFactory
 
 class KeycloakProviderFactory : UserStorageProviderFactory<KeycloakProvider> {
-
-    companion object {
-        val LOGGER: Logger = Logger.getLogger(KeycloakProviderFactory::class.java)
-    }
 
     override fun getId() = "Keycloak"
 
