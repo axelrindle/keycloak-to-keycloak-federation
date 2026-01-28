@@ -1,8 +1,12 @@
+name: keycloak-to-keycloak-federation
+
 services:
   postgres:
     image: postgres:18.1-alpine
     environment:
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
       test:
         - CMD-SHELL
@@ -33,3 +37,6 @@ services:
       KC_LOG_LEVEL: INFO
       KC_LOG_LEVEL_de.axelrindle.keycloak.federation: DEBUG
       JAVA_OPTS_APPEND: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:7331
+
+volumes:
+  pg_data: {}
