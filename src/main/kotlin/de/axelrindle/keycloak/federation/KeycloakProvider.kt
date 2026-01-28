@@ -86,6 +86,10 @@ class KeycloakProvider(
         this.token = result.token
         this.tokenExpiry = Instant.now().plusSeconds(result.expiresIn - 5)
 
+        if (result.error != null) {
+            throw RuntimeException(result.errorDescription)
+        }
+
         return result.token
     }
 
