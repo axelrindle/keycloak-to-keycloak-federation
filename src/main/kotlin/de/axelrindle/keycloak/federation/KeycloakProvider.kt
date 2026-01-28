@@ -63,7 +63,8 @@ class KeycloakProvider(
         var builder = HttpClient.newBuilder()
 
         if (config.keycloakSkipCertificateValidation) {
-            builder = builder.sslContext(SSLContext.getDefault().apply {
+            // TODO: TLS version configuration
+            builder = builder.sslContext(SSLContext.getInstance("TLSv1.3").apply {
                 init(null, arrayOf(DummyTrustManager()), SecureRandom.getInstanceStrong())
             })
         }
