@@ -1,3 +1,6 @@
+[![CI](https://github.com/axelrindle/keycloak-to-keycloak-federation/actions/workflows/ci.yml/badge.svg)](https://github.com/axelrindle/keycloak-to-keycloak-federation/actions/workflows/ci.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/axelrindle/keycloak-to-keycloak-federation?include_prereleases)](https://github.com/axelrindle/keycloak-to-keycloak-federation/releases/latest)
+
 # Keycloak-to-Keycloak Federation
 
 > A custom [User Storage SPI](https://www.keycloak.org/docs/latest/server_development/index.html#_user-storage-spi) implementation which enables Keycloak-to-Keycloak federation.
